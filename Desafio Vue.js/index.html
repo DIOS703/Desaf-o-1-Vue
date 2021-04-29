@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desafio Vue.js</title>
+</head>
+<body>
+    <div class="container" id="app" >
+        <h1 class="titulo text-center">Mantenedor de Productos</h1>
+        <div class="spacer">
+        </div>
+        <form class="formulario1  ">
+            <div class="text-center justify-content-center">
+                <p v-if="errors.length">
+                    <b>Por favor, corrija el(los) siguiente(s) error(es):</b>
+                    <p v-for="error in errors">{{ error }}</p>  
+                  </p>
+            </div>
+            <div>
+                <h4 class="text-center">Añadir un Producto</h4>
+            </div>
+            <div class="d-flex align-items-stretch justify-content-center" >
+                <div class="w-40 form-group izq ">
+                    <div class="labell"><label for="nombre"> <b>Nombre:</b></label></div>
+                   <div class="labell"><label for="descripcion"> <b>Descripcion:</b></label></div>
+                    <div class="labell"><label for="precio"> <b>Precio:</b></label></div>
+                    
+                </div>
+                <div class="w-50 form-group der">
+                    <input v-model="Nnombre" name="nombre" class="form-control input-sm" type="text" name="nombre" id="nombre">
+                    <input v-model="Ndescripcion" name="descripcion" class="form-control input-sm" type="text" name="descripcion" id="descripcion">
+                    <input v-model="Nprecio" name="precio" class="form-control input-sm" type="number" name="precio" id="precio">
+                </div>
+            </div>
+            <div class="text-center">
+        <button value="enviar" @click="checkearForm" class="btnagregar btn " type="button">Añadir Producto</button>             
+            </div>
+               </form>
+        <div class="spacer">
+        </div>
+        <h3 class="tit-tabla">Lista de Productos</h3>
+        <table class="table table-responsive table-hover table-bordered">
+            <thead class=" table-dark ">
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody v-for="(item,key) in Producto" :key="key">
+                <div>
+                    <tr v-if="editkey === key">
+                        <form>
+                            <td> <input class="form-control input-sm" type="text" v-model="NEnombre" :placeholder="item.nombre"> </td>
+                            <td> <input class="form-control input-sm" type="text" v-model="NEdescripcion" :placeholder="item.descripcion"> </td>
+                            <td> <input class="form-control input-sm" type="text" v-model="NEprecio" :placeholder="item.precio"> </td>    
+                            <td><button value="cancelProd" @click="editkey = -1" class="btn botones" type="button">Cancelar</button></td>
+                            <td><button value="updateProd" @click="checkearForm2(key)" class="btn botones" type="button">Confirmar</button></td>
+                        </form>
+                    </tr>
+                    <tr v-else>
+                            <td> {{ item.nombre }} </td>
+                            <td> {{ item.descripcion }} </td>
+                            <td> ${{ item.precio }} </td>   
+                            <td><button value="editprod" @click="editProd(key)" class="btn botones" type="button">Editar</button></td>
+                            <td><button value="editprod" @click="deleteProd(key)" class="btn botones" type="button">Eliminar</button></td>
+                    </tr>
+                </div>
+            </tbody>
+        </table>
+    </div> 
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>   
+    <script src="script.js"></script>  
+</body>
+</html>
